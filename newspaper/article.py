@@ -438,7 +438,7 @@ class Article:
 
         return self
 
-    def parse(self) -> "Article":
+    def parse(self, fetch_images: bool = False) -> "Article":
         """Parse the previously downloaded article.
         If `download()` wasn't called, it will raise
         a `ArticleException` exception.
@@ -488,7 +488,8 @@ class Article:
 
         self.set_movies(self.extractor.get_videos(self.doc, self.top_node))
 
-        self.fetch_images()
+        if fetch_images:
+            self.fetch_images()
 
         if self.top_node is not None:
             self._top_node_complemented = document_cleaner.clean(
